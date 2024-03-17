@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ClickBooking.Models;
 using System.Threading.Tasks;
 using ClickBooking.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ClickBooking.Controllers
 {
@@ -22,20 +23,18 @@ namespace ClickBooking.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] Reserva reserva)
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _userManager.FindByIdAsync(reserva.UsuarioId);
             if (user == null)
             {
-                return Unauthorized();
+                return BadRequest("Usuário não encontrado.");
             }
 
-            reserva.Usuario = user;
             _context.Reservas.Add(reserva);
             await _context.SaveChangesAsync();
 
             return Ok(reserva);
-        }
-
-        [HttpPost("cancel/{id}")]
+        }          
+                [HttpPost("cancel/{id}")]
         public async Task<IActionResult> Cancel(int id)
         {
             var reserva = await _context.Reservas.FindAsync(id);

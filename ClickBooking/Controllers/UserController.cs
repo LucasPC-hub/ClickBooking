@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ClickBooking.Models;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClickBooking.Controllers
 {
@@ -33,42 +34,48 @@ namespace ClickBooking.Controllers
             return BadRequest(result.Errors);
         }
 
-[HttpPost("login")]
-public async Task<IActionResult> Login([FromBody] Login model)
-{
-    var user = await _userManager.FindByNameAsync(model.Username);
-    if (user == null)
-    {
-        return BadRequest("User not found");
-    }
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] Login model)
+        {
+            var user = await _userManager.FindByNameAsync(model.Username);
+            if (user == null)
+            {
+                return BadRequest("User not found");
+            }
 
-    var result = await _signInManager.PasswordSignInAsync(user, model.Password, isPersistent: false, lockoutOnFailure: false);
+            var result = await _signInManager.PasswordSignInAsync(user, model.Password, isPersistent: false, lockoutOnFailure: false);
 
-    if (result.Succeeded)
-    {
-        return Ok("User"+user+ "logged in");
-    }
-    else if (result.IsLockedOut)
-    {
-        return BadRequest("User account locked out");
-    }
-    else if (result.IsNotAllowed)
-    {
-        return BadRequest("User is not allowed to sign in");
-    }
-    else if (result.RequiresTwoFactor)
-    {
-        return BadRequest("User is required to provide a second factor for authentication");
-    }
+            if (result.Succeeded)
+            {
+                return Ok("User"+user+ "logged in");
+            }
+            else if (result.IsLockedOut)
+            {
+                return BadRequest("User account locked out");
+            }
+            else if (result.IsNotAllowed)
+            {
+                return BadRequest("User is not allowed to sign in");
+            }
+            else if (result.RequiresTwoFactor)
+            {
+                return BadRequest("User is required to provide a second factor for authentication");
+            }
 
-    return Unauthorized();
-}
+            return Unauthorized();
+        }
 
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return Ok();
+        }
+        [HttpGet("users")]
+        public async Task<IActionResult> GetUsers()
+        {
+            var users = await _userManager.Users.ToListAsync();
+            return Ok(users);
         }
     }
 }
