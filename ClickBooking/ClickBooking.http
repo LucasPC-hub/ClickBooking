@@ -1,0 +1,6 @@
+@ClickBooking_HostAddress = http://localhost:5187
+
+GET {{ClickBooking_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
