@@ -78,3 +78,4 @@ C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\obj\Debug\net8.0\refint\C
 C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\obj\Debug\net8.0\ClickBooking.pdb
 C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\obj\Debug\net8.0\ClickBooking.genruntimeconfig.cache
 C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\obj\Debug\net8.0\ref\ClickBooking.dll
+C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\obj\Debug\net8.0\ClickBooking.sourcelink.json

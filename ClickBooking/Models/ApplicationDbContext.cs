@@ -11,5 +11,6 @@ namespace ClickBooking.Data
         {
         }
         public DbSet<Reserva> Reservas { get; set; }
+        public DbSet<Restaurante> Restaurantes { get; set; }
     }
 }
