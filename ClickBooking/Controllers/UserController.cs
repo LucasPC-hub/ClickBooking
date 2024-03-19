@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ClickBooking.Models;
 using System.Threading.Tasks;
@@ -76,6 +77,27 @@ namespace ClickBooking.Controllers
         {
             var users = await _userManager.Users.ToListAsync();
             return Ok(users);
+        }
+        
+        [HttpGet("current")]
+        public async Task<IActionResult> GetCurrent()
+        {
+            // Get the user ID
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+            {
+                return Unauthorized();
+            }
+
+            // Get the user from the database
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            // Return the user's ID and username
+            return Ok(new { Id = user.Id, Username = user.UserName });
         }
     }
 }

@@ -35,7 +35,12 @@ public class RestauranteController : Controller
             return NotFound("Restaurante não encontrado");
         }
 
+        // Add the reserva to the restaurant
         restaurante.Reservas.Add(reserva);
+
+        // Also add the reserva to the Reservas table
+        _context.Reservas.Add(reserva);
+
         await _context.SaveChangesAsync();
 
         return Ok(restaurante);
@@ -43,7 +48,9 @@ public class RestauranteController : Controller
     [HttpGet]
     public async Task<IActionResult> GetRestaurantes()
     {
-        var restaurantes = await _context.Restaurantes.ToListAsync();
+        var restaurantes = await _context.Restaurantes
+            .Include(r => r.Reservas) // Include the Reservas when fetching the Restaurantes
+            .ToListAsync();
         return Ok(restaurantes);
     }
 }

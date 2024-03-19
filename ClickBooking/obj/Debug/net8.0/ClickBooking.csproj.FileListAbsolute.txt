@@ -79,3 +79,6 @@ C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\obj\Debug\net8.0\ClickBoo
 C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\obj\Debug\net8.0\ClickBooking.genruntimeconfig.cache
 C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\obj\Debug\net8.0\ref\ClickBooking.dll
 C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\obj\Debug\net8.0\ClickBooking.sourcelink.json
+C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\bin\Debug\net8.0\Vue\clickbooking\jsconfig.json
+C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\bin\Debug\net8.0\Vue\clickbooking\package-lock.json
+C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\bin\Debug\net8.0\Vue\clickbooking\package.json
