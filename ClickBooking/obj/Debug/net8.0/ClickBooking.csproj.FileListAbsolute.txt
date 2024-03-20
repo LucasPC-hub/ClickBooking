@@ -79,6 +79,12 @@ C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\obj\Debug\net8.0\ClickBoo
 C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\obj\Debug\net8.0\ClickBooking.genruntimeconfig.cache
 C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\obj\Debug\net8.0\ref\ClickBooking.dll
 C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\obj\Debug\net8.0\ClickBooking.sourcelink.json
-C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\bin\Debug\net8.0\Vue\clickbooking\jsconfig.json
-C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\bin\Debug\net8.0\Vue\clickbooking\package-lock.json
-C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\bin\Debug\net8.0\Vue\clickbooking\package.json
+C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\bin\Debug\net8.0\vue-frontend\jsconfig.json
+C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\bin\Debug\net8.0\vue-frontend\package-lock.json
+C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\bin\Debug\net8.0\vue-frontend\package.json
+C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\bin\Debug\net8.0\Castle.Core.dll
+C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\bin\Debug\net8.0\Moq.dll
+C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\bin\Debug\net8.0\xunit.abstractions.dll
+C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\bin\Debug\net8.0\xunit.assert.dll
+C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\bin\Debug\net8.0\xunit.core.dll
+C:\Users\Lucas\RiderProjects\ClickBooking\ClickBooking\bin\Debug\net8.0\xunit.execution.dotnet.dll

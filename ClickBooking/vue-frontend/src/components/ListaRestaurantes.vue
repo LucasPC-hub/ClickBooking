@@ -18,7 +18,7 @@ export default {
     };
   },
   async created() {
-    const response = await fetch('https://localhost:7201/api/restaurante/');
+    const response = await fetch('/api/restaurante/');
     this.restaurantes = await response.json();
   }
 };

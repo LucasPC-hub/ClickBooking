@@ -22,7 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Vue\" />
+      <Folder Include="vue-frontend\src\views\" />
     </ItemGroup>
 
 </Project>
