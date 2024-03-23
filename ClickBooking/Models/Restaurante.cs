@@ -6,6 +6,8 @@ public class Restaurante
     public int Id { get; set; }
     public string Nome { get; set; }
     public string Endereco { get; set; }
+    public byte[]? Imagem { get; set; }
+    public int LugaresDisponiveis { get; set; }
     public List<Reserva> Reservas { get; set; }
 
     public Restaurante()

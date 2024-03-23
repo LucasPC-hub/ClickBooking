@@ -6,8 +6,8 @@ export default {
   theme: {
     extend: {colors: {
         primary: '#efc114', // Substitua '#123456' pela cor primária desejada
-        secondary: '#000000', // Substitua '#654321' pela cor secundária desejada
-        tertiary: 'rgba(220,220,220,0.73)', // Substitua '#ffffff' pela cor terciária desejada
+        secondary:'rgb(37,37,37)' , // Substitua '#654321' pela cor secundária desejada
+        tertiary: 'rgba(138,138,138,0.25)', // Substitua '#ffffff' pela cor terciária desejada
       },
       }
   },

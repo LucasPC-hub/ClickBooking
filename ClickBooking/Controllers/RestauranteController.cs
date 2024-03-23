@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using ClickBooking.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using System.Threading.Tasks;
+
 
 namespace ClickBooking.Controllers;
 
@@ -18,15 +22,21 @@ public class RestauranteController : Controller
         _context = context;
     }
 
-    [HttpPost("create")]
-    public async Task<IActionResult> Create([FromBody] Restaurante restaurante)
+[HttpPost("create")]
+public async Task<IActionResult> Create(IFormFile file, [FromForm] Restaurante restaurante)
+{
+    using (var memoryStream = new MemoryStream())
     {
-        _context.Restaurantes.Add(restaurante);
-        await _context.SaveChangesAsync();
-
-        return Ok(restaurante);
+        await file.CopyToAsync(memoryStream);
+        restaurante.Imagem = memoryStream.ToArray();
     }
-    [HttpPost("{id}/addReserva")]
+
+    _context.Restaurantes.Add(restaurante);
+    await _context.SaveChangesAsync();
+
+    return Ok(restaurante);
+}
+ [HttpPost("{id}/addReserva")]
     public async Task<IActionResult> AddReserva(int id, [FromBody] Reserva reserva)
     {
         var restaurante = await _context.Restaurantes.FindAsync(id);
