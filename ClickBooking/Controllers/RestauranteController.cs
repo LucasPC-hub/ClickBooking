@@ -63,4 +63,16 @@ public async Task<IActionResult> Create(IFormFile file, [FromForm] Restaurante r
             .ToListAsync();
         return Ok(restaurantes);
     }
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetRestaurante(int id)
+    { 
+        var restaurante = await _context.Restaurantes
+            .Include(r => r.Reservas) // Include the Reservas when fetching a single Restaurante
+            .FirstOrDefaultAsync(r => r.Id == id);
+        if (restaurante == null)
+        {
+            return NotFound("Restaurante não encontrado");
+        } 
+        return Ok(restaurante);
+    }
 }

@@ -48,7 +48,8 @@ namespace ClickBooking.Controllers
 
             if (result.Succeeded)
             {
-                return Ok("User"+user+ "logged in");
+                // Return the user's ID and username
+                return Ok(new { Id = user.Id, Username = user.UserName });
             }
             else if (result.IsLockedOut)
             {

@@ -22,6 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="vue-frontend\src\services\" />
       <Folder Include="vue-frontend\src\views\" />
     </ItemGroup>
 

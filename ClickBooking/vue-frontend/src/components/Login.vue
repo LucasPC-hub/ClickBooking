@@ -17,7 +17,13 @@ const handleSubmit = async () => {
   try {
     const response = await axios.post('https://localhost:7201/api/user/login', data)
     console.log(response.data)
+
+
     if (response.status === 200) {
+      // Save user ID and username to localStorage
+      localStorage.setItem('userId', response.data.id)
+      localStorage.setItem('username', response.data.username)
+
       router.push('/restaurantes')
     }
   } catch (error) {
