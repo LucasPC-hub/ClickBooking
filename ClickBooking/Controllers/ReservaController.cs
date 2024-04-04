@@ -34,7 +34,8 @@ namespace ClickBooking.Controllers
 
             return Ok(reserva);
         }          
-                [HttpPost("cancel/{id}")]
+        
+        [HttpPost("cancel/{id}")]
         public async Task<IActionResult> Cancel(int id)
         {
             var reserva = await _context.Reservas.FindAsync(id);

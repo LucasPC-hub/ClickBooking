@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ClickBooking")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b0bd6bfece01bf6bfbe9bda166bd6c003aa1915f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ff34b956bf737e13e78b736a285b89625b6dce49")]
 [assembly: System.Reflection.AssemblyProductAttribute("ClickBooking")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ClickBooking")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

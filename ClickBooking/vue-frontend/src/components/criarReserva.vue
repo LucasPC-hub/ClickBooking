@@ -20,6 +20,7 @@
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
+import router from "@/router/index.js";
 
 const restaurante = ref(null)
 const route = useRoute()
@@ -39,6 +40,7 @@ const handleSubmit = async () => {
   try {
     const response = await axios.post(`/api/restaurante/${id}/addReserva`, reserva.value)
     console.log('Reserva criada com sucesso:', response.data)
+    await router.replace('/listaReservas')
   } catch (error) {
     console.error('Erro ao criar reserva:', error)
   }
