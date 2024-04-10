@@ -21,11 +21,9 @@ namespace ClickBooking
                     Configuration.GetConnectionString("DefaultConnection"),
                     new MySqlServerVersion(new Version(8, 0, 32))));
 
-            services.AddDefaultIdentity<User>(options =>
-            {
-                options.SignIn.RequireConfirmedAccount = false;
-            })
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDefaultIdentity<User>(options => { options.SignIn.RequireConfirmedAccount = false; })
+                .AddRoles<IdentityRole>() // Adicione esta linha para adicionar o suporte a roles
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -40,16 +38,17 @@ namespace ClickBooking
                     builder =>
                     {
                         builder
-                        .AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader();
+                            .AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
                     });
             });
 
             services.AddControllers();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext context)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext context,
+            RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -62,6 +61,14 @@ namespace ClickBooking
                 app.UseHsts();
             }
 
+            // Check if the "Gerente" role exists and create it if it doesn't
+            if (!roleManager.RoleExistsAsync("Gerente").Result)
+            {
+                IdentityRole role = new IdentityRole();
+                role.Name = "Gerente";
+                IdentityResult roleResult = roleManager.CreateAsync(role).Result;
+            }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -72,10 +79,7 @@ namespace ClickBooking
 
             app.UseCors("AllowAllOrigins");
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

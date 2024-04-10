@@ -10,6 +10,11 @@ const router = createRouter({
       component: Login
     },
     {
+      path: '/login',
+      name: 'login',
+      component: Login
+    },
+    {
       path: '/restaurantes',
       name: 'restaurantes',
       // route level code-splitting
@@ -48,6 +53,14 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../components/listaReservas.vue')
+    },
+    {
+      path: '/listaReservasGerente',
+      name: 'listaReservasGerente',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../components/listaReservasGerente.vue')
     }
   ]
 })

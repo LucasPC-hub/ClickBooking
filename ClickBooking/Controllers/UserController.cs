@@ -24,10 +24,23 @@ namespace ClickBooking.Controllers
         public async Task<IActionResult> Register([FromBody] Register model)
         {
             var user = new User { UserName = model.Username };
+
+            // Se o modelo incluir um RestauranteId, assuma que o usuário é um gerente
+            if (model.RestauranteId.HasValue)
+            {
+                user.RestauranteId = model.RestauranteId.Value;
+            }
+
             var result = await _userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
+                // Se o usuário é um gerente, adicione-o ao role "Gerente"
+                if (model.RestauranteId.HasValue)
+                {
+                    await _userManager.AddToRoleAsync(user, "Gerente");
+                }
+
                 await _signInManager.SignInAsync(user, isPersistent: false);
                 return Ok();
             }
@@ -38,7 +51,9 @@ namespace ClickBooking.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] Login model)
         {
-            var user = await _userManager.FindByNameAsync(model.Username);
+            var user = await _userManager.Users
+                .Include(u => u.Restaurante) // Carrega o restaurante do usuário
+                .FirstOrDefaultAsync(u => u.UserName == model.Username);
             if (user == null)
             {
                 return BadRequest("User not found");
@@ -48,8 +63,8 @@ namespace ClickBooking.Controllers
 
             if (result.Succeeded)
             {
-                // Return the user's ID and username
-                return Ok(new { Id = user.Id, Username = user.UserName });
+                // Return the user's ID, username and restaurant
+                return Ok(new { Id = user.Id, Username = user.UserName, Restaurante = user.Restaurante });
             }
             else if (result.IsLockedOut)
             {
@@ -66,7 +81,7 @@ namespace ClickBooking.Controllers
 
             return Unauthorized();
         }
-
+        
         [HttpPost]
         public async Task<IActionResult> Logout()
         {

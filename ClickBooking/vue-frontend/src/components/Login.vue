@@ -1,13 +1,14 @@
 ﻿<script setup>
-import { ref } from 'vue'
+import {nextTick, ref} from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
+import {useStore} from "vuex";
 const router = useRouter() // Define router
 
 
 const username = ref('')
 const password = ref('')
-
+const store = useStore()
 const handleSubmit = async () => {
   const data = {
     username: username.value,
@@ -17,14 +18,23 @@ const handleSubmit = async () => {
   try {
     const response = await axios.post('https://localhost:7201/api/user/login', data)
     console.log(response.data)
-
-
     if (response.status === 200) {
       // Save user ID and username to localStorage
       localStorage.setItem('userId', response.data.id)
       localStorage.setItem('username', response.data.username)
+      
+      if (response.data.restaurante) {
+        // Save the restaurant to localStorage
+        localStorage.setItem('restauranteId', response.data.restaurante.id)
+        store.dispatch('setManagerLoggedIn', true)
+      }
 
-      router.push('/restaurantes')
+      await router.push('/restaurantes')
+
+      await nextTick()
+
+      // Reload the page
+      window.location.reload()
     }
   } catch (error) {
     console.error(error)
