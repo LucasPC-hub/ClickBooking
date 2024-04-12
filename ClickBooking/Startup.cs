@@ -28,8 +28,11 @@ namespace ClickBooking
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 0;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
             });
 
             services.AddCors(options =>

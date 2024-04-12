@@ -23,7 +23,7 @@ const cancelarReserva = async (reservaId) => {
   try {
     await axios.post(`/api/reserva/cancel/${reservaId}`)
     // Atualizar a lista de reservas após o cancelamento da reserva
-    const response = await axios.get(`/api/reserva/restaurante/${restauranteId}`)
+    const response = await axios.get(`/api/restaurante/${restauranteId}`)
     reservas.value = response.data
   } catch (error) {
     console.error('Erro ao cancelar reserva:', error)
