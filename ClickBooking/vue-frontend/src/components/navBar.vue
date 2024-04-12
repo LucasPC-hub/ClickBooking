@@ -13,7 +13,7 @@ watchEffect(() => {
 })
 
 const goToLogin = () => {
-  router.push('/')
+  router.push('/login')
 }
 const handleLogout = async () => {
   // Remove user data from localStorage
