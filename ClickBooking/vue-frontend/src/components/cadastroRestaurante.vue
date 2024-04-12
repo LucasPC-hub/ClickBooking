@@ -8,6 +8,8 @@
           <input v-model="nome" type="text" class=" bg-gray-100 border outline-none rounded-md py-3 w-full px-4 mb-3" placeholder="Nome do Restaurante">
           <input v-model="endereco" type="text" class=" bg-gray-100 border outline-none rounded-md py-3 w-full px-4 mb-3" placeholder="Endereço">
           <input v-model="lugaresDisponiveis" type="number" class=" bg-gray-100 border outline-none rounded-md py-3 w-full px-4 mb-3" placeholder="Número de Lugares Disponíveis">
+          <input v-model="username" type="text" class=" bg-gray-100 border outline-none rounded-md py-3 w-full px-4 mb-3" placeholder="Username">
+          <input v-model="password" type="password" class=" bg-gray-100 border outline-none rounded-md py-3 w-full px-4 mb-3" placeholder="Senha">
           <input type="file" @change="handleFileUpload" class=" bg-gray-100 border outline-none rounded-md py-3 w-full px-4 mb-3">
           <button type="submit" class="  bg-secondary border outline-none rounded-md py-3 w-full px-4 font-semibold text-primary">Cadastrar Restaurante</button>
         </form>
@@ -20,19 +22,22 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import {nextTick, ref} from 'vue'
 import axios from 'axios'
+import router from "@/router/index.js";
 
 const nome = ref('')
 const endereco = ref('')
 const lugaresDisponiveis = ref('')
+const username = ref('')
+const password = ref('')
 const file = ref(null)
 
 const handleFileUpload = event => {
   file.value = event.target.files[0]
 }
 
-const handleSubmit = async () => {
+const cadastrarRestaurante = async () => {
   let formData = new FormData()
   formData.append('nome', nome.value)
   formData.append('endereco', endereco.value)
@@ -52,20 +57,42 @@ const handleSubmit = async () => {
         }
       })
       if (response.status === 200) {
-        // Redirecionar para a página de restaurantes ou mostrar uma mensagem de sucesso
+        return response.data.id // Retorne o ID do restaurante criado
       }
     } catch (error) {
       console.error(error)
-      if (error.response && error.response.data) {
-        if (error.response.data.errors) {
-          console.log('Erros de validação:', error.response.data.errors)
-        } else {
-          console.log('Objeto de erro do servidor:', error.response.data)
-        }
-      }
     }
   }
   reader.readAsArrayBuffer(file.value)
+}
+
+const cadastrarGerente = async (restauranteId) => {
+  const data = {
+    username: username.value,
+    password: password.value,
+    restauranteId: restauranteId // Use o ID do restaurante como parâmetro
+    
+  }
+
+  try {
+    const response = await axios.post('https://localhost:7201/api/user/register', data)
+    if (response.status === 200) {
+      // Redirecionar para a página de login ou mostrar uma mensagem de sucesso
+    }
+  } catch (error) {
+    console.error(error)
+  }
+  await router.push('/restaurantes')
+
+  await nextTick()
+
+  // Reload the page
+  window.location.reload()
+}
+
+const handleSubmit = async () => {
+  const restauranteId = await cadastrarRestaurante() // Cadastre o restaurante e obtenha o ID
+  await cadastrarGerente(restauranteId) // Cadastre o gerente com o ID do restaurante
 }
 </script>
 
